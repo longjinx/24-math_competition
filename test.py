@@ -79,7 +79,7 @@ for i in plots:
     for j in crops:
         for t in years:
             if x[i['地块名称'], j['作物名称'], t].value() > 0:
-                i['地块面积/亩'] = 3*i['地块面积/亩']
+                # i['地块面积/亩'] = 3*i['地块面积/亩']
                 results.append({
                     '地块名称': i['地块名称'],
                     '年份': t,
@@ -92,7 +92,7 @@ for i in plots:
 df_results = pd.DataFrame(results)
 
 # 将结果输出到 Excel 文件
-df_results.to_excel('种植优化结果.xlsx', index=False)
+df_results.to_excel('rusult222.xlsx', index=False)
 
 print(f"求解状态: {status}")
 print("结果已成功保存到 '种植优化结果.xlsx'")
