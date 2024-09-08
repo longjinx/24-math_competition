@@ -53,35 +53,37 @@ e作物名称与预计销售量 = dict(zip(data_dict["df5_作物名称"], data_d
 
 菌类 = ['榆黄菇', '香菇', '白灵菇', '羊肚菌']
 
-第一类地块 = ['aA1','aA2','aA3','aA4','aA5','aB1','aB2','aB3','aB4','aB5','aB6','aB7','aB8','aB9','aB10','aB11','aB12','aB13','aB14','aC1','aC2','aC3','aC4','aC5','aC6']
+地块第一类 = ['aA1', 'aA2', 'aA3', 'aA4', 'aA5', 'aB1', 'aB2', 'aB3', 'aB4', 'aB5', 'aB6', 'aB7', 'aB8', 'aB9', 'aB10',
+              'aB11', 'aB12', 'aB13', 'aB14', 'aC1', 'aC2', 'aC3', 'aC4', 'aC5', 'aC6']
+地块水浇地 = ['aD1', 'bD1', 'bD2', 'aD3', 'bD3', 'aD4', 'bD4', 'aD5', 'bD5', 'aD6', 'bD6', 'aD7', 'aD8']
+地块普通大棚 = ['aE1', 'bE1', 'aE2', 'bE2', 'aE3', 'bE3', 'aE4', 'bE4', 'aE5', 'bE5', 'aE6', 'bE6', 'aE7', 'bE7', 'aE8',
+                'bE8', 'aE9', 'bE9', 'aE10', 'bE10', 'aE11', 'bE11', 'aE12', 'bE12', 'aE13', 'bE13', 'aE14', 'bE14',
+                'aE15', 'bE15', 'cE15', 'aE16', 'bE16']
+地块智能大棚 = ['aF1', 'bF1', 'cF1', 'dF1', 'aF2', 'bF2', 'cF2', 'dF2', 'aF3', 'bF3', 'cF3', 'aF4', 'bF4', 'cF4']
+
 
 # 开始筛选
-
-
-
-for field in b一季度地块与作物名称.keys():
-    # 能种哪些
-    check_food_list = data_dict["df3_作物名称"]
-
+for field in 地块第一类:
     h该地块历史作物列表 = ["豆类检测占位作物"] + b一季度地块与作物名称[field]
-    print(f"\n\n{field}的历史作物列表：{h该地块历史作物列表},\n\n最后一位：{h该地块历史作物列表[-1]}\n")
-    print(f"作物种类：{(c作物名称和作物种类[h该地块历史作物列表[-1]])}\n")
+    print(f"\n\n{field}的历史作物列表：{h该地块历史作物列表},\n\n最后一位及其作物种类：{h该地块历史作物列表[-1]}     {c作物名称和作物种类[h该地块历史作物列表[-1]]}\n")
+
+    # 豆类检查
+    if (len((c作物名称和作物种类[h该地块历史作物列表[-1]])) <= 4) and (
+            len((c作物名称和作物种类[h该地块历史作物列表[-2]])) <= 4):
+        # 接下来必须种豆类
+        check_food_list = 粮食豆类
+    else:
+        check_food_list = 粮食豆类 + 粮食非豆类
+
     # 重茬检查
     if h该地块历史作物列表[-1] in check_food_list:
         check_food_list.remove(h该地块历史作物列表[-1])
 
+    print(f"\n剩余可用列表：{check_food_list}")
+
     check_food_list_onlytofor = list(check_food_list)
     # 遍历作物检查表
     for check_food in check_food_list_onlytofor:
+
         # print(f"\n当前checkfood: {check_food}")
         # print(f"当前checkfoodlist: {check_food_list}")
-
-        # 豆类检查
-        if (len((c作物名称和作物种类[h该地块历史作物列表[-1]])) <= 4) and (len((c作物名称和作物种类[h该地块历史作物列表[-2]])) <= 4):
-            # 接下来必须种豆类
-            for i in c作物名称和作物种类.keys():
-                if i in 粮食豆类 or 蔬菜豆类:
-                    check_food_list.remove(i)
-
-        print(f"\n{check_food}的剩余可用列表：{check_food_list}")
-
